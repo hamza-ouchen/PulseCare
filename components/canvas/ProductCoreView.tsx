@@ -1,0 +1,20 @@
+"use client";
+import { useMemo, useRef } from "react";
+import { View, PerspectiveCamera } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
+import * as THREE from "three";
+import { sceneTokens, tokens } from "@/lib/tokens";
+import { useAppStore } from "@/lib/store";
+import styles from "./ProductCoreView.module.css";
+
+function MonitoringCore() {
+  const group = useRef<THREE.Group>(null);
+  const reduced = useAppStore((state) => state.reducedMotion);
+  const telemetry = useAppStore((state) => state.telemetry);
+  const nodePositions = useMemo(() => [[-1.35,.65,0],[1.35,.65,0],[-1.35,-.65,0],[1.35,-.65,0]] as const, []);
+  const curves = useMemo(() => [0,1,2].map((line) => new THREE.CatmullRomCurve3(Array.from({ length: 28 }, (_, index) => { const x = -1.75 + index * .13; const amplitude = line === 0 ? .13 : line === 1 ? .07 : .1; return new THREE.Vector3(x, Math.sin(index * (line + 1) * .72) * amplitude + (line - 1) * .38, -.35); }))), []);
+  const riskColor = (index: number) => { const state = telemetry[index]; if (!state || state.freshness === "OFFLINE") return tokens.ash; if (state.risk === "CRITICAL" || state.risk === "HIGH") return tokens["vital-crimson"]; if (state.risk === "MEDIUM") return tokens["vital-amber"]; return tokens["vital-mint"]; };
+  useFrame(({ clock }, delta) => { if (!group.current || reduced) return; group.current.rotation.y += delta * .055; const bpm = telemetry[0]?.heartRate || 72; const pulse = 1 + Math.max(0, Math.sin(clock.elapsedTime * bpm / 60 * Math.PI * 2)) * .025; group.current.scale.setScalar(pulse); });
+  return <group ref={group}><mesh><icosahedronGeometry args={[.72, 3]} /><meshPhysicalMaterial color={tokens["vital-cyan"]} emissive={tokens["vital-blue"]} emissiveIntensity={.7} roughness={.28} metalness={.25} transparent opacity={.38} wireframe /></mesh>{[1.05,1.25,1.48].map((radius, index) => <mesh rotation={[Math.PI / 2 + index * .38,index * .45,0]} key={radius}><torusGeometry args={[radius,.012,8,128]} /><meshBasicMaterial color={index === 1 ? tokens["vital-violet"] : tokens["vital-cyan"]} transparent opacity={.48} /></mesh>)}{curves.map((curve,index) => <mesh position={[0,0,-.4]} rotation={[0,.32,0]} key={index}><tubeGeometry args={[curve,96,.008,6,false]} /><meshBasicMaterial color={[tokens["vital-cyan"],tokens["vital-blue"],tokens["vital-violet"]][index]} transparent opacity={.62} /></mesh>)}{nodePositions.map((position, index) => <group position={position} key={index}><mesh><sphereGeometry args={[.11,20,20]} /><meshBasicMaterial color={riskColor(index)} /></mesh><mesh><ringGeometry args={[.17,.18,32]} /><meshBasicMaterial color={riskColor(index)} transparent opacity={.55} side={THREE.DoubleSide} /></mesh></group>)}</group>;
+}
+export function ProductCoreView() { const track = useRef<HTMLDivElement>(null!); const telemetry = useAppStore((state) => state.telemetry); return <div className={styles.shell}><div className={styles.track} ref={track} aria-hidden="true" /><View track={track}><PerspectiveCamera makeDefault fov={sceneTokens.camera.fov} near={sceneTokens.camera.near} far={sceneTokens.camera.far} position={[0,0,4.6]} /><MonitoringCore /></View><div className={styles.fallbackCore} aria-hidden="true"><div className={styles.orbit}><i/><i/><i/><b/></div><svg viewBox="0 0 600 240" preserveAspectRatio="none"><path d="M0 126 L90 126 L108 115 L121 138 L139 44 L155 205 L176 126 L260 126 L278 112 L292 139 L311 46 L327 204 L350 126 L440 126 L456 114 L470 138 L490 45 L505 204 L526 126 L600 126"/><path d="M0 174 C55 132 86 214 143 174 S235 134 292 174 S385 214 442 174 S540 134 600 174"/></svg><span className={styles.nodeA}/><span className={styles.nodeB}/><span className={styles.nodeC}/><span className={styles.nodeD}/></div><div className={styles.scrim} aria-hidden="true" /><div className={styles.labels} aria-hidden="true"><span>HEART RATE {telemetry[0]?.heartRate ? `${telemetry[0].heartRate} BPM` : "SIGNAL"}</span><span>OXYGENATION {telemetry[0]?.spo2 ? `${telemetry[0].spo2}%` : "SIGNAL"}</span><span>RESPIRATION {telemetry[0]?.respiratoryRate || "SIGNAL"}</span><span>PRESSURE / TELEMETRY</span></div></div>; }

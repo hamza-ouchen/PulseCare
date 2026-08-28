@@ -1,0 +1,169 @@
+.page {
+  position: relative;
+  isolation: isolate;
+  min-height: calc(100vh - 49px);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: var(--sp-6);
+}
+
+.atmosphere {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(53, 233, 220, 0.11), transparent 28%),
+    repeating-linear-gradient(0deg, rgba(44, 66, 96, 0.045) 0 1px, transparent 1px 6px),
+    linear-gradient(145deg, var(--void), var(--abyss) 50%, var(--deep));
+}
+
+.panel {
+  width: min(100%, 480px);
+  padding: var(--sp-7);
+  clip-path: var(--chamfer-lg);
+  border: var(--glass-border);
+  background: linear-gradient(145deg, rgba(11, 18, 32, 0.9), var(--glass-bg));
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--edge-lit), var(--glow-cyan);
+}
+
+.header h1 {
+  margin: var(--sp-3) 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: var(--fs-h1);
+  letter-spacing: -0.02em;
+}
+
+.header > p:not(.eyebrow),
+.demoNotice {
+  color: var(--mist);
+  line-height: 1.6;
+}
+.securityRail { display:flex;justify-content:space-between;gap:var(--sp-3);margin-top:var(--sp-6);padding-top:var(--sp-3);border-top:1px solid var(--steel);color:var(--vital-mint);font:var(--fs-hud) var(--font-hud),monospace;letter-spacing:.08em; }
+
+.eyebrow {
+  margin: 0;
+  color: var(--vital-cyan);
+  font-family: var(--font-hud), sans-serif;
+  font-size: var(--fs-hud);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}
+
+.form {
+  display: grid;
+  gap: var(--sp-5);
+  margin-top: var(--sp-7);
+}
+
+.field {
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.field label {
+  color: var(--mist);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+.field input {
+  min-height: 48px;
+  width: 100%;
+  padding: 0 var(--sp-4);
+  border: var(--glass-border);
+  border-radius: var(--r-sm);
+  outline: none;
+  color: var(--bone);
+  background: linear-gradient(145deg, rgba(17, 28, 46, 0.88), rgba(7, 12, 20, 0.92));
+  font: inherit;
+  transition: border-color var(--d-micro) var(--ease-out-quart), box-shadow var(--d-micro) var(--ease-out-quart);
+}
+
+.field input:focus-visible {
+  border-color: var(--vital-cyan);
+  box-shadow: var(--edge-lit), var(--glow-cyan);
+}
+
+.field input:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.error {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: center;
+  margin: 0;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--vital-crimson);
+  border-radius: var(--r-sm);
+  color: var(--bone);
+  background: linear-gradient(135deg, rgba(255, 59, 92, 0.13), var(--scrim));
+  font-size: var(--fs-sm);
+}
+
+.error span {
+  display: grid;
+  flex: 0 0 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--void);
+  background: var(--vital-crimson);
+  font-family: var(--font-vital), monospace;
+  font-weight: 700;
+}
+
+.submit {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  padding: 0 var(--sp-5);
+  border: 1px solid var(--vital-cyan);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  color: var(--bone);
+  background: linear-gradient(120deg, rgba(53, 233, 220, 0.23), rgba(76, 141, 255, 0.16));
+  box-shadow: var(--edge-lit);
+  font: 600 var(--fs-body) var(--font-interface), sans-serif;
+  transition: transform var(--d-micro) var(--ease-out-quart), box-shadow var(--d-micro) var(--ease-out-quart);
+}
+
+.submit:hover:not(:disabled),
+.submit:focus-visible {
+  box-shadow: var(--edge-lit), var(--glow-cyan);
+  transform: translateY(-2px);
+}
+
+.submit:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(232, 238, 247, 0.3);
+  border-top-color: var(--bone);
+  border-radius: 50%;
+  animation: spin var(--d-ui) linear infinite;
+}
+
+.demoNotice {
+  margin: var(--sp-6) 0 0;
+  font-size: var(--fs-xs);
+  text-align: center;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 540px) {
+  .page { padding: var(--sp-3); }
+  .panel { padding: var(--sp-6) var(--sp-5); }
+}

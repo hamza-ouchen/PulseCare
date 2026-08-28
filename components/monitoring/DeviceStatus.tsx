@@ -1,0 +1,4 @@
+import type { PatientMeasurement } from "@/lib/monitoring/types";
+import { formatValue } from "./format";
+import styles from "./Monitoring.module.css";
+export function DeviceStatus({ current }: { current: PatientMeasurement }) { const lowBattery = current.battery_level !== null && current.battery_level <= 20; return <article className={styles.panel}><p className={styles.eyebrow}>DISPOSITIF</p><h2>État technique</h2><dl className={styles.details}><div><dt>Device ID</dt><dd>{current.device_id ?? "—"}</dd></div><div><dt>Batterie</dt><dd>{formatValue(current.battery_level)} %</dd></div><div><dt>Wi-Fi RSSI</dt><dd>{formatValue(current.wifi_rssi)} dBm</dd></div><div><dt>Qualité signal</dt><dd>{current.signal_quality ?? "—"}</dd></div></dl>{lowBattery && <p className={styles.technicalAlert}>Batterie faible — alerte technique</p>}</article>; }

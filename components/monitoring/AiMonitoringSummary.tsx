@@ -1,0 +1,5 @@
+import type { PatientMeasurement } from "@/lib/monitoring/types";
+import { displayList } from "./format";
+import styles from "./Monitoring.module.css";
+function List({ items }: { items: unknown[] }) { const values = displayList(items); return values.length ? <ul className={styles.list}>{values.map((value, index) => <li key={`${value}-${index}`}>{value}</li>)}</ul> : <p>—</p>; }
+export function AiMonitoringSummary({ current }: { current: PatientMeasurement }) { return <article className={styles.panel}><p className={styles.eyebrow}>CLINICAL INTELLIGENCE / {current.ai_analysis_status ?? "—"}</p><h2>AI assessment</h2><p>{current.clinical_summary ?? "—"}</p><h3>Critical factors</h3><List items={current.critical_factors}/><h3>Doctor attention</h3><List items={current.doctor_attention_points}/><h3>Recommended checks</h3><List items={current.recommended_checks}/><p className={styles.aiNotice}>AI-assisted analysis — physician validation required. Structured rule-engine risk remains authoritative.</p></article>; }

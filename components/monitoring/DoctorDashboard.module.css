@@ -1,0 +1,45 @@
+.dashboard { display: grid; gap: var(--sp-5); }
+.demoRail { display:flex;flex-wrap:wrap;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);border:1px solid var(--vital-cyan);background:rgba(53,233,220,.055);color:var(--mist);font-size:var(--fs-xs);}.demoRail b { color:var(--vital-cyan);font-family:var(--font-hud),monospace;letter-spacing:.1em;}
+.syncLine { min-height: 1.25rem; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--sp-3); color: var(--mist); font-family: var(--font-hud), monospace; font-size: var(--fs-hud); letter-spacing: .08em; text-transform: uppercase; }
+.updateError { color: var(--vital-amber); }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-3); }
+.kpis article, .patientCard { border: var(--glass-border); background: var(--glass-bg); box-shadow: var(--edge); backdrop-filter: var(--glass-blur); }
+.kpis article { padding: var(--sp-4); clip-path: var(--chamfer-sm); }
+.kpis p { margin: 0; color: var(--mist); font-family: var(--font-hud), monospace; font-size: var(--fs-hud); letter-spacing: .08em; text-transform: uppercase; }
+.kpis strong { display: block; margin-top: var(--sp-2); color: var(--bone); font-family: var(--font-vital), monospace; font-size: var(--fs-vital-md); font-variant-numeric: tabular-nums; }
+.sectionHeading { display: flex; align-items: end; justify-content: space-between; gap: var(--sp-4); }
+.sectionHeading p, .sectionHeading h2 { margin: 0; }
+.sectionHeading p { color: var(--vital-cyan); font-family: var(--font-hud), monospace; font-size: var(--fs-hud); letter-spacing: .14em; }
+.sectionHeading h2 { color: var(--bone); font-size: var(--fs-h2); }
+.sectionHeading > span { color: var(--ash); font-size: var(--fs-sm); }
+.patientGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-4); }
+.patientCard { position: relative; display: grid; gap: var(--sp-4); padding: var(--sp-5); color: inherit; text-decoration: none; clip-path: var(--chamfer-lg); transition: border-color var(--d-ui) var(--ease-out-quart), transform var(--d-ui) var(--ease-out-quart), box-shadow var(--d-ui) var(--ease-out-quart); }
+.patientCard::before { position: absolute; inset: 0 auto 0 0; width: 3px; content: ""; background: var(--vital-mint); }
+.patientCard[data-risk="MEDIUM"]::before { background: var(--vital-amber); }
+.patientCard[data-risk="HIGH"]::before, .patientCard[data-risk="CRITICAL"]::before { background: var(--vital-crimson); box-shadow: var(--glow-crimson); }
+.patientCard:hover, .patientCard:focus-visible { transform: translateY(-2px); border-color: var(--vital-cyan); box-shadow: var(--edge-lit), var(--glow-cyan); outline: none; }
+.cardHeader { display: flex; justify-content: space-between; gap: var(--sp-3); }
+.patientId { margin: 0; color: var(--bone); font-family: var(--font-display), sans-serif; font-size: var(--fs-h3); }
+.room { margin: var(--sp-1) 0 0; color: var(--mist); font-family: var(--font-hud), monospace; font-size: var(--fs-xs); }
+.condition { color: var(--mist); font-size: var(--fs-sm); }.sparkline { width:100%;height:52px;border-block:1px solid var(--steel);}.sparkline polyline { fill:none;stroke:var(--vital-cyan);stroke-width:1.5;vector-effect:non-scaling-stroke;}.attention { display:grid;grid-template-columns:220px 1fr;gap:var(--sp-3);padding:var(--sp-4);border:1px solid var(--steel);background:linear-gradient(90deg,rgba(11,18,32,.94),rgba(7,12,20,.6));}.attention>div p { margin:0;color:var(--vital-cyan);font:var(--fs-hud) var(--font-hud),monospace;letter-spacing:.12em;}.attention>div strong { display:block;margin-top:var(--sp-2);}.attention a { display:grid;grid-template-columns:30px 1fr 1fr auto;gap:var(--sp-3);align-items:center;padding:var(--sp-3);border-left:2px solid var(--vital-crimson);color:var(--bone);text-decoration:none;background:rgba(255,59,92,.045);}.attention a span,.attention a em,.attention a b { font:var(--fs-hud) var(--font-hud),monospace;}.attention a em { color:var(--vital-crimson);font-style:normal;}.attention a b { color:var(--vital-cyan);}
+.freshness, .badges span { align-self: start; padding: var(--sp-1) var(--sp-2); border: 1px solid var(--fog); border-radius: var(--r-xs); font-family: var(--font-hud), monospace; font-size: var(--fs-hud); letter-spacing: .06em; }
+.freshness[data-freshness="LIVE"] { border-color: var(--vital-mint); color: var(--vital-mint); }
+.freshness[data-freshness="DELAYED"] { border-color: var(--vital-amber); color: var(--vital-amber); }
+.freshness[data-freshness="OFFLINE"] { border-color: var(--vital-crimson); color: var(--vital-crimson); }
+.badges { display: flex; flex-wrap: wrap; gap: var(--sp-2); color: var(--mist); }
+.badges span[data-risk="CRITICAL"], .badges span[data-risk="HIGH"] { color: var(--vital-crimson); border-color: var(--vital-crimson); }
+.badges span[data-risk="MEDIUM"] { color: var(--vital-amber); border-color: var(--vital-amber); }
+.badges span[data-risk="LOW"] { color: var(--vital-mint); border-color: var(--vital-mint); }
+.vitals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-3); margin: 0; }
+.vitals div { padding-top: var(--sp-2); border-top: 1px solid var(--steel); }
+.vitals dt { color: var(--ash); font-family: var(--font-hud), monospace; font-size: var(--fs-hud); text-transform: uppercase; }
+.vitals dd { margin: var(--sp-1) 0 0; color: var(--bone); font-family: var(--font-vital), monospace; font-size: var(--fs-vital-md); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.vitals small { color: var(--mist); font-size: var(--fs-hud); }
+.cardFooter { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); color: var(--ash); font-size: var(--fs-xs); }
+.alertActive { color: var(--vital-crimson); }
+.alertClear { color: var(--vital-mint); }
+.loading, .error { padding: var(--sp-7); border: var(--glass-border); background: var(--glass-bg); color: var(--mist); text-align: center; }
+.error { color: var(--vital-crimson); }
+@media (max-width: 820px) { .kpis, .patientGrid { grid-template-columns: 1fr 1fr; } .vitals { grid-template-columns: 1fr 1fr; } .attention { grid-template-columns:1fr;}.attention a { grid-template-columns:30px 1fr;}.attention a em,.attention a b { grid-column:2; } }
+@media (max-width: 560px) { .kpis, .patientGrid { grid-template-columns: 1fr; } .sectionHeading { align-items: start; flex-direction: column; } }
+@media (prefers-reduced-motion: reduce) { .patientCard { transition: none; } }

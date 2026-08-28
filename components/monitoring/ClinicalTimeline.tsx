@@ -1,0 +1,4 @@
+import type { PatientMeasurement } from "@/lib/monitoring/types";
+import { displayList } from "./format";
+import styles from "./Monitoring.module.css";
+export function ClinicalTimeline({ measurements }: { measurements: PatientMeasurement[] }) { const events = measurements.filter((m,index,array) => m.alert_event || m.triggered_rules.length || index === 0 || m.risk_level !== array[index - 1]?.risk_level).slice(-10).reverse(); return <section className={styles.panel}><p className={styles.eyebrow}>CLINICAL TIMELINE</p><h2>Risk progression</h2><ol className={styles.timeline}>{events.map((m) => <li data-risk={m.risk_level} key={m.measurement_id}><time>{new Date(m.measured_at).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}</time><strong>{m.risk_level}</strong><span>{m.alert_event ?? (displayList(m.triggered_rules).join(" · ") || "Measurement received")}</span></li>)}</ol></section>; }

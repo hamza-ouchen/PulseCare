@@ -1,0 +1,4 @@
+import type { PatientMeasurement } from "@/lib/monitoring/types";
+import { formatValue } from "./format";
+import styles from "./Monitoring.module.css";
+export function PatientSymptoms({ current }: { current: PatientMeasurement }) { return <article className={styles.panel}><p className={styles.eyebrow}>SYMPTÔMES</p><h2>État déclaré</h2><dl className={styles.details}><div><dt>Douleur</dt><dd>{formatValue(current.pain_level)}/10</dd></div><div><dt>Fatigue</dt><dd>{formatValue(current.fatigue_level)}/10</dd></div><div><dt>Dyspnée</dt><dd>{formatValue(current.dyspnea_level)}/10</dd></div><div><dt>Vertiges</dt><dd>{current.dizziness === null ? "—" : current.dizziness ? "Oui" : "Non"}</dd></div><div><dt>Nausée</dt><dd>{current.nausea === null ? "—" : current.nausea ? "Oui" : "Non"}</dd></div><div><dt>Activité / position</dt><dd>{current.activity_level ?? "—"} / {current.position ?? "—"}</dd></div></dl></article>; }

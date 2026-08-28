@@ -1,0 +1,18 @@
+.button {
+  min-height: 44px;
+  padding: 0 var(--sp-5);
+  border: 1px solid var(--vital-cyan);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  color: var(--bone);
+  background: linear-gradient(120deg, rgba(53, 233, 220, 0.2), rgba(76, 141, 255, 0.14));
+  box-shadow: var(--edge-lit);
+  font: 600 var(--fs-sm) var(--font-interface), sans-serif;
+  transition: transform var(--d-micro) var(--ease-out-quart), box-shadow var(--d-micro) var(--ease-out-quart);
+}
+
+.button:hover,
+.button:focus-visible {
+  box-shadow: var(--edge-lit), var(--glow-cyan);
+  transform: translateY(-2px);
+}
