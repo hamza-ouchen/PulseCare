@@ -1,13 +1,13 @@
 # Alertia / PulseCare
 
-Application académique de démonstration pour la surveillance de patients à distance. Le projet fournit à un médecin une station clinique permettant de consulter les constantes vitales, les alertes, les tendances, l'état des appareils, l'environnement de la chambre et le dossier médical de quatre patients synthétiques.
+Application de démonstration pour la surveillance de patients à distance. Le projet fournit à un médecin une station clinique permettant de consulter les constantes vitales, les alertes, les tendances, l'état des appareils, l'environnement de la chambre et le dossier médical de quatre patients synthétiques.
 
 > **Important** : cette application est une démonstration technique. Elle n'est pas un dispositif médical et ne remplace pas le jugement clinique. Aucune donnée patient réelle ne doit être utilisée.
 
 ## Fonctionnalités
 
 - Authentification médecin avec Supabase.
-- Tableau de bord global des quatre patients suivis.
+- Tableau de bord global des patients suivis.
 - Vue détaillée par patient.
 - Affichage des constantes vitales : fréquence cardiaque, SpO2, température, fréquence respiratoire et pression artérielle.
 - Historique et graphiques de mesures.
